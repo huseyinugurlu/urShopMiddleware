@@ -1,7 +1,6 @@
 package com.example.urshopmiddleware.customerOffer;
 
 
-
 import com.example.urshopmiddleware.model.CustomerOffer;
 
 import java.util.List;

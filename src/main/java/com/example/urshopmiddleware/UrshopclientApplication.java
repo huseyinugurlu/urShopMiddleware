@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 public class UrshopclientApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(UrshopclientApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(UrshopclientApplication.class, args);
+    }
 
 }

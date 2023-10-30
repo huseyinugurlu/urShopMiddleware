@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class ResetPswrdClientRequest {
-  private String newPassword;
+    private String newPassword;
 }

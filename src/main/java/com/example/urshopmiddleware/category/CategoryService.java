@@ -1,7 +1,6 @@
 package com.example.urshopmiddleware.category;
 
 
-import com.example.urshopmiddleware.controller.category.GetAllCategoryResponse;
 import com.example.urshopmiddleware.model.Category;
 
 import java.util.List;

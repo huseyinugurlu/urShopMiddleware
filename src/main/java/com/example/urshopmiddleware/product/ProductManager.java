@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductManager implements ProductService {
@@ -36,18 +37,31 @@ public class ProductManager implements ProductService {
     @Override
     public Product getById(int productId) {
         final GetByIdProductClientResponse byIdProductResponse = urShopClient.getByIdProduct(productId);
-        return Product.builder()
-                .productName(byIdProductResponse.name())
-                .price(byIdProductResponse.price())
-                .stock(byIdProductResponse.stock())
-                .description(byIdProductResponse.description())
-                .categoryId(byIdProductResponse.categoryId())
-                .build();
+        if (Objects.nonNull(byIdProductResponse)) {
+            return Product.builder()
+                    .productName(byIdProductResponse.name())
+                    .price(byIdProductResponse.price())
+                    .stock(byIdProductResponse.stock())
+                    .description(byIdProductResponse.description())
+                    .categoryId(byIdProductResponse.categoryId())
+                    .build();
+        } else {
+            throw new RuntimeException("Product not found!");
+        }
     }
 
     @Override
     public List<Product> getByCategory(int categoryId) {
-        return null;//productRepository.findProductByCategory_CategoryId(categoryId);
+        return urShopClient.getByCategoryId(categoryId).stream()
+                .map(getAllProductsClientResponse ->
+                        Product.builder()
+                                .productName(getAllProductsClientResponse.name())
+                                .price(getAllProductsClientResponse.price())
+                                .stock(getAllProductsClientResponse.stock())
+                                .description(getAllProductsClientResponse.description())
+                                .categoryId(getAllProductsClientResponse.categoryId())
+                                .build())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -58,31 +72,25 @@ public class ProductManager implements ProductService {
                 product.getStock(),
                 product.getDescription(),
                 product.getCategoryId()
-                ));
+        ));
     }
 
     @Override
     public void update(Product product) {
-    if (Objects.nonNull(urShopClient.getByIdProduct(product.getProductId()))) {
-      this.urShopClient.updateProduct(new UpdateProductClientRequest(
-              product.getProductId(),
-              product.getProductName(),
-              product.getPrice(),
-              product.getStock(),
-              product.getDescription(),
-              product.getCategoryId()
-              ));
-    } else {
-      throw new RuntimeException("Product not found!");
-    }
+        getById(product.getProductId());
+        this.urShopClient.updateProduct(new UpdateProductClientRequest(
+                product.getProductName(),
+                product.getPrice(),
+                product.getStock(),
+                product.getDescription(),
+                product.getCategoryId()
+        ));
     }
 
     @Override
     public void delete(int productId) {
-        if (Objects.nonNull(urShopClient.getByIdProduct(productId))) {
-            this.urShopClient.deleteProduct(productId);
-        } else {
-            throw new RuntimeException("Product not found!");
-        }
+        getById(productId);
+        this.urShopClient.deleteProduct(productId);
+
     }
 }

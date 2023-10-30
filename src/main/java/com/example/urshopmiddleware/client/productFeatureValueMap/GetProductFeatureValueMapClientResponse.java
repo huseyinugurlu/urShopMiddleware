@@ -1,4 +1,4 @@
 package com.example.urshopmiddleware.client.productFeatureValueMap;
 
-public record GetProductFeatureValueMapClientResponse(Integer productId, Integer clientFeatureValueId) {
+public record GetProductFeatureValueMapClientResponse(Integer id, Integer productId, Integer clientFeatureValueId) {
 }

@@ -6,8 +6,6 @@ import com.example.urshopmiddleware.controller.BaseController;
 import com.example.urshopmiddleware.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +20,6 @@ public class AuthController extends BaseController {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
-
 
 
 }

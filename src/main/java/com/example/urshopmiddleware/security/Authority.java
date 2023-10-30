@@ -5,11 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 public enum Authority implements GrantedAuthority {
-  ROLE_CUSTOMER,
-  ROLE_CASHIER;
+    ROLE_CUSTOMER,
+    ROLE_CASHIER;
 
-  @Override
-  public String getAuthority() {
-    return name();
-  }
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

@@ -21,6 +21,7 @@ import com.example.urshopmiddleware.client.order.GetByIdOrderClientResponse;
 import com.example.urshopmiddleware.client.paymentCard.CreatePaymentCardRequest;
 import com.example.urshopmiddleware.client.paymentCard.GetAllPaymentCardResponse;
 import com.example.urshopmiddleware.client.paymentCard.GetByIdPaymentCardResponse;
+import com.example.urshopmiddleware.client.paymentCard.UpdatePaymentCardClientRequest;
 import com.example.urshopmiddleware.client.product.CreateProductClientRequest;
 import com.example.urshopmiddleware.client.product.GetAllProductsClientResponse;
 import com.example.urshopmiddleware.client.product.GetByIdProductClientResponse;
@@ -77,7 +78,7 @@ public interface UrShopClient {
     GetByIdProductClientResponse getByIdProduct(@PathVariable int id);
 
     @GetMapping(ApiConstants.GET_BY_CATEGORY_ID + ApiConstants.BY_ID)
-     List<GetAllProductsClientResponse> getByCategoryId(@PathVariable int id);
+    List<GetAllProductsClientResponse> getByCategoryId(@PathVariable int id);
 
     @PostMapping(ApiConstants.PRODUCTS + ApiConstants.ADD)
     void addProduct(@RequestBody CreateProductClientRequest createProductClientRequest);
@@ -102,7 +103,7 @@ public interface UrShopClient {
     //***ORDER
 
     @GetMapping(ApiConstants.ORDERS + ApiConstants.GET_ALL)
-    GetAllOrderClientResponse getAllOrder();
+    List<GetAllOrderClientResponse> getAllOrder();
 
     @GetMapping(ApiConstants.ORDERS + ApiConstants.BY_ID)
     GetByIdOrderClientResponse getByIdOrder(@PathVariable int id);
@@ -125,6 +126,8 @@ public interface UrShopClient {
     void addPaymentCard(@RequestBody CreatePaymentCardRequest createPaymentCardRequest);
 
     @PutMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.ADD)
+    void updatePaymentCard(
+            @PathVariable int id, @RequestBody final UpdatePaymentCardClientRequest updatePaymentCardClientRequest);
 
     @DeleteMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.BY_ID)
     void deletePaymentCard(@PathVariable int id);
@@ -151,19 +154,19 @@ public interface UrShopClient {
     //***CASHIER
 
     @GetMapping(ApiConstants.CASHIER + ApiConstants.GET_ALL)
-     List<GetAllCashierClientResponse> getAllCashier();
+    List<GetAllCashierClientResponse> getAllCashier();
 
     @GetMapping(ApiConstants.CASHIER + ApiConstants.BY_ID)
     GetByIdCashierClientResponse getByIdCashier(@PathVariable int id);
 
     @PostMapping(ApiConstants.CASHIER + ApiConstants.ADD)
-     void addCashier(@RequestBody CreateCashierClientRequest createCashierRequest);
+    void addCashier(@RequestBody CreateCashierClientRequest createCashierRequest);
 
     @PutMapping(ApiConstants.CASHIER + ApiConstants.UPDATE)
-     void updateCashier(@RequestBody final UpdateCashierClientRequest updateCashierRequest);
+    void updateCashier(@RequestBody final UpdateCashierClientRequest updateCashierRequest);
 
     @DeleteMapping(ApiConstants.CASHIER + ApiConstants.BY_ID)
-     void deleteCashier(@PathVariable int id);
+    void deleteCashier(@PathVariable int id);
 
     //***CUSTOMER
 

@@ -34,7 +34,7 @@ public class ProductController extends BaseController {
 
     @PostMapping(ApiConstants.ADD)
     public void add(@RequestBody CreateProductRequest createProductRequest) {
-        Product product=Product.builder()
+        Product product = Product.builder()
                 .productName(createProductRequest.name())
                 .price(createProductRequest.price())
                 .description(createProductRequest.description())
@@ -46,7 +46,7 @@ public class ProductController extends BaseController {
 
     @PutMapping(ApiConstants.UPDATE)
     public void update(@RequestBody UpdateProductRequest updateProductRequest) {
-        Product product=Product.builder()
+        Product product = Product.builder()
                 .productId(updateProductRequest.id())
                 .productName(updateProductRequest.name())
                 .price(updateProductRequest.price())

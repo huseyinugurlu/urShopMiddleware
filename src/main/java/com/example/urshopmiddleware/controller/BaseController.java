@@ -13,11 +13,11 @@ public class BaseController {
         return ResponseEntity.ok(response);
     }
 
-    public <T>  BaseResponse<T> success2(T data) {
+    public <T> BaseResponse<T> success2(T data) {
         return new BaseResponse<>(true, null, data);
     }
 
-    private  ResponseEntity<?> error(String errorMessage) {
+    private ResponseEntity<?> error(String errorMessage) {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("success", false);
         hashMap.put("error", errorMessage);
@@ -26,11 +26,11 @@ public class BaseController {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> handleBusinessException(RuntimeException businessException){
+    public ResponseEntity<?> handleBusinessException(RuntimeException businessException) {
         return error(businessException.getMessage());
     }
 
-    public record BaseResponse<T>(Boolean success,String error,T data){
+    public record BaseResponse<T>(Boolean success, String error, T data) {
 
     }
 }

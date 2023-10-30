@@ -34,7 +34,7 @@ public class CategoryController extends BaseController {
 
     @PostMapping(ApiConstants.ADD)
     public void add(@RequestBody CreateCategoryRequest createCategoryRequest) {
-        final Category category= Category.builder()
+        final Category category = Category.builder()
                 .categoryName(createCategoryRequest.name())
                 .build();
         this.categoryService.add(category);
@@ -42,7 +42,7 @@ public class CategoryController extends BaseController {
 
     @PutMapping(ApiConstants.UPDATE)
     public void update(@RequestBody final UpdateCategoryRequest updateCategoryRequest) {
-        Category category= Category.builder()
+        Category category = Category.builder()
                 .categoryId(updateCategoryRequest.id())
                 .categoryName(updateCategoryRequest.name())
                 .build();

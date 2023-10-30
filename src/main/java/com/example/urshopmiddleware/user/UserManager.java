@@ -2,7 +2,6 @@ package com.example.urshopmiddleware.user;
 
 
 import com.example.urshopmiddleware.client.UrShopClient;
-import com.example.urshopmiddleware.client.product.GetByIdProductClientResponse;
 import com.example.urshopmiddleware.client.user.GetByIdUserClientResponse;
 import com.example.urshopmiddleware.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

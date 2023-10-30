@@ -3,8 +3,7 @@ package com.example.urshopmiddleware.client.paymentCard;
 
 import java.time.LocalDate;
 
-public record UpdatePaymentCardRequest(
-        int id,
+public record UpdatePaymentCardClientRequest(
         long cardNumber,
         String cardHolderName,
         LocalDate expirationDate,

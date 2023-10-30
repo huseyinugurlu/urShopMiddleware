@@ -1,11 +1,11 @@
 package com.example.urshopmiddleware.security.token;
 
 
-import com.example.urshopmiddleware.security.SecurityUser;
 import com.example.urshopmiddleware.model.User;
+import com.example.urshopmiddleware.security.SecurityUser;
 
 public interface TokenService {
-  String createToken(SecurityUser securityUser);
+    String createToken(SecurityUser securityUser);
 
-  User getUser(Object source);
+    User getUser(Object source);
 }

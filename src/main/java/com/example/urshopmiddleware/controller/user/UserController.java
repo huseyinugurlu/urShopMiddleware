@@ -6,7 +6,10 @@ import com.example.urshopmiddleware.controller.BaseController;
 import com.example.urshopmiddleware.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,13 +26,13 @@ public class UserController extends BaseController {
 
     @GetMapping(ApiConstants.GET_ALL)
     public ResponseEntity<?> getAll() {
-        final List<GetAllUserResponse> data=GetAllUserResponse.fromUsers(userService.getAll());
+        final List<GetAllUserResponse> data = GetAllUserResponse.fromUsers(userService.getAll());
         return success(data);
     }
 
     @GetMapping(ApiConstants.BY_ID)
     public ResponseEntity<?> getByIdUserResponse(@PathVariable int id) {
-        final GetByIdUserResponse data=GetByIdUserResponse.fromUser(userService.getById(id));
+        final GetByIdUserResponse data = GetByIdUserResponse.fromUser(userService.getById(id));
         return success(data);
     }
 

@@ -1,7 +1,7 @@
 package com.example.urshopmiddleware.security.token;
 
-import com.example.urshopmiddleware.security.SecurityUser;
 import com.example.urshopmiddleware.model.User;
+import com.example.urshopmiddleware.security.SecurityUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Component;
