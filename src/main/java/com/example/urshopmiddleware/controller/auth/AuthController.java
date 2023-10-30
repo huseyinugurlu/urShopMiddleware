@@ -24,8 +24,5 @@ public class AuthController extends BaseController {
     }
 
 
-    @PostMapping(ApiConstants.LOGIN)
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        return userService.authenticate(authRequest.getUsername(), authRequest.getPassword());
-    }
+
 }

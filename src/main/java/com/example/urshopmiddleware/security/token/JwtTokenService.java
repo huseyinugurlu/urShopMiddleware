@@ -53,7 +53,6 @@ public class JwtTokenService implements TokenService {
 
         User user = null;
         if (userClaims != null) {
-            // TODO: 24.10.2023 builder kullan
             user = User.builder()
                     .id((long) userClaims.get("id"))
                     .name((String) userClaims.get("name"))
