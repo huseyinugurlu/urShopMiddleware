@@ -2,6 +2,7 @@ package com.example.urshopmiddleware.security;
 
 
 import com.example.urshopmiddleware.controller.ApiConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     private final JwtUserDetailsConverter jwtUserDetailsConverter;
 
+    @Autowired
     public SecurityConfig(JwtUserDetailsConverter jwtUserDetailsConverter) {
         this.jwtUserDetailsConverter = jwtUserDetailsConverter;
     }
@@ -30,15 +32,22 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         auth -> {
                             auth.requestMatchers(
+                                            (ApiConstants.CUSTOMER + "/**")
+                                    )
+                                    .authenticated()
+                                    .requestMatchers(
+                                            (ApiConstants.PRODUCTS + "/**"),
                                             (ApiConstants.CATEGORIES + "/**"),
-                                            (ApiConstants.PRODUCTS + "/**"), "/swagger-ui/**", "/v3/api-docs/**",
-                                            //(ApiConstants.BASE_URL + ApiConstants.PRODUCTS + ApiConstants.GETBYCATEGORYTID+ApiConstants.BYID),
-                                            (ApiConstants.AUTH + "/**"))
-                                    .permitAll();
-                            //                  .requestMatchers(ApiConstants.PRODUCTS + "/**")
-                            //                  .hasAnyAuthority(Authority.ROLE_USER.getAuthority())
-                            //                  .requestMatchers(ApiConstants.CASHIER + "/**")
-                            //                  .hasAnyAuthority(Authority.ROLE_ADMIN.getAuthority());
+                                            (ApiConstants.CASHIER + "/**"),
+                                            (ApiConstants.AUTH + "/**"),
+                                            (ApiConstants.CUSTOMER_OFFER + "/**"),
+                                            (ApiConstants.PAYMENT_CARDS + "/**"),
+                                            (ApiConstants.ORDERS + "/**"),
+                                            (ApiConstants.PRODUCT_CUSTOMER_OFFER_MAP + "/**"),
+                                            (ApiConstants.PRODUCT_FEATURE_VALUE_MAP + "/**"),
+                                            "/v3/api-docs/**",
+                                            "/swagger-ui/**"
+                                    ).permitAll();
                         })
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(

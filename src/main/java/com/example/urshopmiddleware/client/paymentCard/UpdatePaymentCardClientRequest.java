@@ -7,6 +7,6 @@ public record UpdatePaymentCardClientRequest(
         long cardNumber,
         String cardHolderName,
         LocalDate expirationDate,
-        int cvv,
-        Integer clientCustomerId) {
+        int cvv
+) {
 }

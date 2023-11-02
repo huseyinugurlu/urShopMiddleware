@@ -6,6 +6,7 @@ import com.example.urshopmiddleware.controller.BaseController;
 import com.example.urshopmiddleware.model.Product;
 import com.example.urshopmiddleware.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +24,15 @@ public class ProductController extends BaseController {
     }
 
     @GetMapping(ApiConstants.GET_ALL)
-    public List<GetAllProductsResponse> getAll() {
-        return GetAllProductsResponse.fromProducts(productService.getAll());
+    public ResponseEntity<?> getAll() {
+        List<GetAllProductsResponse> data = GetAllProductsResponse.fromProducts(productService.getAll());
+        return success(data);
     }
 
     @GetMapping(ApiConstants.BY_ID)
-    public GetByIdProductResponse getByIdProductResponse(@PathVariable int id) {
-        return GetByIdProductResponse.fromProduct(productService.getById(id));
+    public ResponseEntity<?> getByIdProductResponse(@PathVariable int id) {
+        GetByIdProductResponse data = GetByIdProductResponse.fromProduct(productService.getById(id));
+        return success(data);
     }
 
     @PostMapping(ApiConstants.ADD)
@@ -44,10 +47,10 @@ public class ProductController extends BaseController {
         this.productService.add(product);
     }
 
-    @PutMapping(ApiConstants.UPDATE)
-    public void update(@RequestBody UpdateProductRequest updateProductRequest) {
+    @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
+    public void update(@PathVariable int id, @RequestBody UpdateProductRequest updateProductRequest) {
         Product product = Product.builder()
-                .productId(updateProductRequest.id())
+                .productId(id)
                 .productName(updateProductRequest.name())
                 .price(updateProductRequest.price())
                 .description(updateProductRequest.description())

@@ -5,6 +5,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public record GetByIdOrderClientResponse(
-        int id,float totalAmount, LocalDate orderDate, Integer clientCustomerId, Set<Integer> clientOrderItemIds) {
+        int id, float totalAmount, LocalDate orderDate, Integer customerId, Set<Integer> orderItemIds) {
 
 }

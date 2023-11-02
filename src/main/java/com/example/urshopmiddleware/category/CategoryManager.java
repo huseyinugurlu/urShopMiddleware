@@ -49,14 +49,19 @@ public class CategoryManager implements CategoryService {
     @Override
     public void add(Category category) {
         urShopClient.addCategory(new CreateCategoryClientRequest(
-                category.getCategoryName(),
-                category.getProductIds()));
+                category.getCategoryName()
+        ));
     }
 
     @Override
     public void update(Category category) {
         getById(category.getCategoryId());
-        this.urShopClient.updateCategory(new UpdateCategoryClientRequest(category.getCategoryId(), category.getCategoryName()));
+        this.urShopClient.updateCategory(
+                category.getCategoryId(),
+                new UpdateCategoryClientRequest(
+                        category.getCategoryName()
+                )
+        );
     }
 
     @Override

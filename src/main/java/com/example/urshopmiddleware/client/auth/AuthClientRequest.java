@@ -1,6 +1,4 @@
 package com.example.urshopmiddleware.client.auth;
 
-public class AuthClientRequest {
-    private String username;
-    private String password;
+public record AuthClientRequest(String username, String password) {
 }

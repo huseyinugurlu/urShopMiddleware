@@ -1,6 +1,8 @@
 package com.example.urshopmiddleware.client;
 
 import com.example.urshopmiddleware.client.auth.AuthClientRequest;
+import com.example.urshopmiddleware.client.auth.AuthClientResponse;
+import com.example.urshopmiddleware.client.auth.ResetPasswordClientRequest;
 import com.example.urshopmiddleware.client.cashier.CreateCashierClientRequest;
 import com.example.urshopmiddleware.client.cashier.GetAllCashierClientResponse;
 import com.example.urshopmiddleware.client.cashier.GetByIdCashierClientResponse;
@@ -31,26 +33,24 @@ import com.example.urshopmiddleware.client.productFeatureValueMap.GetProductFeat
 import com.example.urshopmiddleware.client.user.GetAllUserClientResponse;
 import com.example.urshopmiddleware.client.user.GetByIdUserClientResponse;
 import com.example.urshopmiddleware.controller.ApiConstants;
-import com.example.urshopmiddleware.controller.auth.ResetPswrdRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@FeignClient(value = "urshop-client", url = "http://localhost:8080/api")
+@FeignClient(value = "urshop-client", url = "${urshop.client.url}")
 public interface UrShopClient {
-
 
     //***AUTH
 
     @PostMapping(ApiConstants.AUTH + ApiConstants.LOGIN)
-    AuthClientRequest authenticateAndGetToken(@RequestBody AuthClientRequest clientAuthRequest);
+    AuthClientResponse authenticate(@RequestBody AuthClientRequest clientAuthRequest);
 
     @PostMapping(ApiConstants.AUTH + ApiConstants.CHANGE_PASSWORD)
     void changePassword(
             @RequestHeader("Authorization") String jwtToken,
-            @RequestBody final ResetPswrdRequest resetPswrdRequest);
+            @RequestBody final ResetPasswordClientRequest resetPasswordClientRequest);
 
     //***CATEGORY
 
@@ -63,8 +63,8 @@ public interface UrShopClient {
     @PostMapping(ApiConstants.CATEGORIES + ApiConstants.ADD)
     void addCategory(@RequestBody CreateCategoryClientRequest createCategoryClientRequest);
 
-    @PutMapping(ApiConstants.CATEGORIES + ApiConstants.UPDATE)
-    void updateCategory(@RequestBody final UpdateCategoryClientRequest updateCategoryClientRequest);
+    @PutMapping(ApiConstants.CATEGORIES + ApiConstants.UPDATE + ApiConstants.BY_ID)
+    void updateCategory(@PathVariable int id, @RequestBody final UpdateCategoryClientRequest updateCategoryClientRequest);
 
     @DeleteMapping(ApiConstants.CATEGORIES + ApiConstants.BY_ID)
     void deleteCategory(@PathVariable int id);
@@ -77,14 +77,14 @@ public interface UrShopClient {
     @GetMapping(ApiConstants.PRODUCTS + ApiConstants.BY_ID)
     GetByIdProductClientResponse getByIdProduct(@PathVariable int id);
 
-    @GetMapping(ApiConstants.GET_BY_CATEGORY_ID + ApiConstants.BY_ID)
+    @GetMapping(ApiConstants.PRODUCTS + ApiConstants.GET_BY_CATEGORY_ID + ApiConstants.BY_ID)
     List<GetAllProductsClientResponse> getByCategoryId(@PathVariable int id);
 
     @PostMapping(ApiConstants.PRODUCTS + ApiConstants.ADD)
     void addProduct(@RequestBody CreateProductClientRequest createProductClientRequest);
 
-    @PutMapping(ApiConstants.PRODUCTS + ApiConstants.UPDATE)
-    void updateProduct(@RequestBody final UpdateProductClientRequest updateProductClientRequest);
+    @PutMapping(ApiConstants.PRODUCTS + ApiConstants.UPDATE + ApiConstants.BY_ID)
+    void updateProduct(@PathVariable int id, @RequestBody final UpdateProductClientRequest updateProductClientRequest);
 
     @DeleteMapping(ApiConstants.PRODUCTS + ApiConstants.BY_ID)
     void deleteProduct(@PathVariable int id);
@@ -125,9 +125,8 @@ public interface UrShopClient {
     @PostMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.ADD)
     void addPaymentCard(@RequestBody CreatePaymentCardRequest createPaymentCardRequest);
 
-    @PutMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.ADD)
-    void updatePaymentCard(
-            @PathVariable int id, @RequestBody final UpdatePaymentCardClientRequest updatePaymentCardClientRequest);
+    @PutMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.UPDATE + ApiConstants.BY_ID)
+    void updatePaymentCard(@PathVariable int id, @RequestBody final UpdatePaymentCardClientRequest updatePaymentCardClientRequest);
 
     @DeleteMapping(ApiConstants.PAYMENT_CARDS + ApiConstants.BY_ID)
     void deletePaymentCard(@PathVariable int id);

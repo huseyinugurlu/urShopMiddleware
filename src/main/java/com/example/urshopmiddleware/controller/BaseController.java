@@ -1,5 +1,6 @@
 package com.example.urshopmiddleware.controller;
 
+import com.example.urshopmiddleware.exception.UrShopFallbackClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -8,13 +9,13 @@ import java.util.HashMap;
 public class BaseController {
 
 
-    public ResponseEntity<BaseResponse<?>> success(Object data) {
-        BaseResponse<?> response = success2(data);
-        return ResponseEntity.ok(response);
-    }
+    public ResponseEntity<?> success(Object data) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("success", true);
+        hashMap.put("error", null);
+        hashMap.put("data", data);
+        return ResponseEntity.ok(hashMap);
 
-    public <T> BaseResponse<T> success2(T data) {
-        return new BaseResponse<>(true, null, data);
     }
 
     private ResponseEntity<?> error(String errorMessage) {
@@ -25,12 +26,10 @@ public class BaseController {
         return ResponseEntity.ok(hashMap);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> handleBusinessException(RuntimeException businessException) {
+    @ExceptionHandler(UrShopFallbackClient.class)
+    public ResponseEntity<?> handleBusinessException(UrShopFallbackClient businessException) {
         return error(businessException.getMessage());
     }
 
-    public record BaseResponse<T>(Boolean success, String error, T data) {
 
-    }
 }

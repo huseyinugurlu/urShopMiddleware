@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(ApiConstants.CASHIER)
+@RequestMapping(ApiConstants.USER)
 public class UserController extends BaseController {
     private final UserService userService;
 

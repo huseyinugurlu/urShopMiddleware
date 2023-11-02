@@ -6,6 +6,6 @@ public record UpdateProductClientRequest(
         float price,
         int stock,
         String description,
-        Integer clientCategoryId) {
+        Integer categoryId) {
 
 }

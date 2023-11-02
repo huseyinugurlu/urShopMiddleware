@@ -3,6 +3,6 @@ package com.example.urshopmiddleware.controller.auth;
 import lombok.Getter;
 
 @Getter
-public class ResetPswrdRequest {
+public class ResetPasswordRequest {
     private String newPassword;
 }

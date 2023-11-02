@@ -8,5 +8,5 @@ public record CreatePaymentCardRequest(
         String cardHolderName,
         LocalDate expirationDate,
         int cvv,
-        Integer clientCustomerId) {
+        Integer customerId) {
 }

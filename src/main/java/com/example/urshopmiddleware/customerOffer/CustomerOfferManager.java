@@ -21,7 +21,7 @@ public class CustomerOfferManager implements CustomerOfferService {
         return urShopClient.getAllCustomerOffer().stream()
                 .map(getAllOfferResponse -> CustomerOffer.builder()
                         .totalAmount(getAllOfferResponse.totalAmount())
-                        .productCustomerOfferMapIds(getAllOfferResponse.clientProductCustomerOfferMapIds())
+                        .productCustomerOfferMapIds(getAllOfferResponse.productCustomerOfferMapIds())
                         .build()
                 ).toList();
     }
@@ -33,7 +33,7 @@ public class CustomerOfferManager implements CustomerOfferService {
             return CustomerOffer.builder()
                     .id(byIdCustomerOffer.id())
                     .totalAmount(byIdCustomerOffer.totalAmount())
-                    .productCustomerOfferMapIds(byIdCustomerOffer.productIds())
+                    .productCustomerOfferMapIds(byIdCustomerOffer.productCustomerOfferMapIds())
                     .build();
         } else {
             throw new RuntimeException("Customer Offer not found!");

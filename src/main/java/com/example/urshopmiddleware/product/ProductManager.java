@@ -25,6 +25,7 @@ public class ProductManager implements ProductService {
     public List<Product> getAll() {
         final List<GetAllProductsClientResponse> products = urShopClient.getAllProducts();
         return products.stream().map(getAllProductsResponse -> Product.builder()
+                .productId(getAllProductsResponse.id())
                 .productName(getAllProductsResponse.name())
                 .stock(getAllProductsResponse.stock())
                 .price(getAllProductsResponse.price())
@@ -39,6 +40,7 @@ public class ProductManager implements ProductService {
         final GetByIdProductClientResponse byIdProductResponse = urShopClient.getByIdProduct(productId);
         if (Objects.nonNull(byIdProductResponse)) {
             return Product.builder()
+                    .productId(byIdProductResponse.id())
                     .productName(byIdProductResponse.name())
                     .price(byIdProductResponse.price())
                     .stock(byIdProductResponse.stock())
@@ -78,7 +80,7 @@ public class ProductManager implements ProductService {
     @Override
     public void update(Product product) {
         getById(product.getProductId());
-        this.urShopClient.updateProduct(new UpdateProductClientRequest(
+        this.urShopClient.updateProduct(product.getProductId(), new UpdateProductClientRequest(
                 product.getProductName(),
                 product.getPrice(),
                 product.getStock(),

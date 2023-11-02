@@ -12,13 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(ApiConstants.CATEGORIES)
-public class CategoryController extends BaseController {
+public class CategoryController extends BaseController implements CategoryControllerApi {
 
     private final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
 
     @GetMapping(ApiConstants.GET_ALL)
     public ResponseEntity<?> getAllCategory() {
@@ -36,14 +37,15 @@ public class CategoryController extends BaseController {
     public void add(@RequestBody CreateCategoryRequest createCategoryRequest) {
         final Category category = Category.builder()
                 .categoryName(createCategoryRequest.name())
+                .productIds(null)
                 .build();
         this.categoryService.add(category);
     }
 
-    @PutMapping(ApiConstants.UPDATE)
-    public void update(@RequestBody final UpdateCategoryRequest updateCategoryRequest) {
+    @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
+    public void update(@PathVariable int id, @RequestBody final UpdateCategoryRequest updateCategoryRequest) {
         Category category = Category.builder()
-                .categoryId(updateCategoryRequest.id())
+                .categoryId(id)
                 .categoryName(updateCategoryRequest.name())
                 .build();
         this.categoryService.update(category);

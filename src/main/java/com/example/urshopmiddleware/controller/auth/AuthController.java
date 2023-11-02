@@ -1,25 +1,32 @@
 package com.example.urshopmiddleware.controller.auth;
 
 
+import com.example.urshopmiddleware.auth.AuthService;
 import com.example.urshopmiddleware.controller.ApiConstants;
 import com.example.urshopmiddleware.controller.BaseController;
-import com.example.urshopmiddleware.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(ApiConstants.AUTH)
 public class AuthController extends BaseController {
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
     @Autowired
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
+    @PostMapping(ApiConstants.CHANGE_PASSWORD)
+    public void changePassword(
+            @RequestHeader("Authorization") String jwtToken,
+            @RequestBody final ResetPasswordRequest resetPasswordRequest) {
+        this.authService.changePassword(jwtToken, resetPasswordRequest.getNewPassword());
+    }
+
+    @PostMapping(ApiConstants.LOGIN)
+    public AuthResponse authenticate(@RequestBody AuthRequest authRequest) {
+        return authService.authenticate(authRequest);
+    }
 
 }
