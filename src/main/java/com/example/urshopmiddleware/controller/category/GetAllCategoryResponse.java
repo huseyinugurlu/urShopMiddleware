@@ -1,6 +1,20 @@
 package com.example.urshopmiddleware.controller.category;
 
-import java.util.Set;
+import com.example.urshopmiddleware.model.Category;
 
-public record GetAllCategoryResponse(String name, Set<Integer> productIds) {
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public record GetAllCategoryResponse(int id,String name, Set<Integer> productIds) {
+    public static List<GetAllCategoryResponse> fromCategories(List<Category> categories) {
+        return categories.stream().map(GetAllCategoryResponse::fromCategory).toList();
+    }
+
+    public static GetAllCategoryResponse fromCategory(Category category) {
+        return new GetAllCategoryResponse(
+                category.getCategoryId(),
+                category.getCategoryName(),
+                category.getProductIds());
+    }
 }

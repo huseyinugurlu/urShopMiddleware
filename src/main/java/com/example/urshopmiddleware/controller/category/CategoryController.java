@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(ApiConstants.CATEGORIES)
-public class CategoryController extends BaseController implements CategoryControllerApi {
+public class CategoryController extends BaseController {
 
     private final CategoryService categoryService;
 
@@ -23,13 +23,13 @@ public class CategoryController extends BaseController implements CategoryContro
 
     @GetMapping(ApiConstants.GET_ALL)
     public ResponseEntity<?> getAllCategory() {
-        final List<Category> data = categoryService.getAll();
+        final List<GetAllCategoryResponse> data = GetAllCategoryResponse.fromCategories(categoryService.getAll());
         return success(data);
     }
 
     @GetMapping(ApiConstants.BY_ID)
     public ResponseEntity<?> getByIdCategory(@PathVariable int id) {
-        final Category data = categoryService.getById(id);
+        final GetByIdCategoryResponse data = GetByIdCategoryResponse.fromCategory(categoryService.getById(id));
         return success(data);
     }
 

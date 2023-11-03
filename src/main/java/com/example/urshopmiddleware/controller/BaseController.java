@@ -1,6 +1,6 @@
 package com.example.urshopmiddleware.controller;
 
-import com.example.urshopmiddleware.exception.UrShopFallbackClient;
+import com.example.urshopmiddleware.exception.BusinessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -26,8 +26,8 @@ public class BaseController {
         return ResponseEntity.ok(hashMap);
     }
 
-    @ExceptionHandler(UrShopFallbackClient.class)
-    public ResponseEntity<?> handleBusinessException(UrShopFallbackClient businessException) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusinessException(BusinessException businessException) {
         return error(businessException.getMessage());
     }
 

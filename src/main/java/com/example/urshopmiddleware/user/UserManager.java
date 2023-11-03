@@ -30,13 +30,14 @@ public class UserManager implements UserService {
                                 .creationDate(getAllUserClientResponse.creationDate())
                                 .authority(getAllUserClientResponse.authority())
                                 .build()
-                ).collect(Collectors.toList());
+                ).toList();
     }
 
     @Override
     public User getById(int id) {
         final GetByIdUserClientResponse byIdUser = urShopClient.getByIdUser(id);
         return User.builder()
+                .id(byIdUser.id())
                 .name(byIdUser.userName())
                 .email(byIdUser.email())
                 .authority(byIdUser.authority())

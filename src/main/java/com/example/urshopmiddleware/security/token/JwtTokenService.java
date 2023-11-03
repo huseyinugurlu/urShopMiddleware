@@ -41,7 +41,7 @@ public class JwtTokenService implements TokenService {
                 .issuer(jwtProperties.getIssuer())
                 .issuedAt(now)
                 .expiresAt(expiresAt)
-                .subject(securityUser.toString())//?????????????????
+                .subject(securityUser.toString())
                 .claim(CLAIMS_USER, securityUser)
                 .build();
     }
@@ -54,7 +54,7 @@ public class JwtTokenService implements TokenService {
         User user = null;
         if (userClaims != null) {
             user = User.builder()
-                    .id((long) userClaims.get("id"))
+                    .id((Integer) userClaims.get("id"))
                     .name((String) userClaims.get("name"))
                     .email((String) userClaims.get("email"))
                     .password((String) userClaims.get("password"))
@@ -66,10 +66,4 @@ public class JwtTokenService implements TokenService {
         return user;
     }
 
-    //  @Override
-    //  public User getUser(final Object source) {
-    //    final var claims = ((Jwt) source).getClaims();
-    //    final var user = objectMapper.convertValue(claims.get("user"), User.class);
-    //    return user;
-    //  }
 }

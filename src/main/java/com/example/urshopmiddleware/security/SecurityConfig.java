@@ -32,10 +32,6 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         auth -> {
                             auth.requestMatchers(
-                                            (ApiConstants.CUSTOMER + "/**")
-                                    )
-                                    .authenticated()
-                                    .requestMatchers(
                                             (ApiConstants.PRODUCTS + "/**"),
                                             (ApiConstants.CATEGORIES + "/**"),
                                             (ApiConstants.CASHIER + "/**"),
@@ -45,6 +41,9 @@ public class SecurityConfig {
                                             (ApiConstants.ORDERS + "/**"),
                                             (ApiConstants.PRODUCT_CUSTOMER_OFFER_MAP + "/**"),
                                             (ApiConstants.PRODUCT_FEATURE_VALUE_MAP + "/**"),
+                                            (ApiConstants.CUSTOMER + "/**"),
+                                            (ApiConstants.PRODUCTS + "/**"),
+                                            (ApiConstants.USER + "/**"),
                                             "/v3/api-docs/**",
                                             "/swagger-ui/**"
                                     ).permitAll();

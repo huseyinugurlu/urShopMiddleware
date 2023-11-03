@@ -20,6 +20,7 @@ public class CustomerOfferManager implements CustomerOfferService {
     public List<CustomerOffer> getAll() {
         return urShopClient.getAllCustomerOffer().stream()
                 .map(getAllOfferResponse -> CustomerOffer.builder()
+                        .id(getAllOfferResponse.id())
                         .totalAmount(getAllOfferResponse.totalAmount())
                         .productCustomerOfferMapIds(getAllOfferResponse.productCustomerOfferMapIds())
                         .build()

@@ -5,5 +5,5 @@ import java.util.Date;
 import java.util.Set;
 
 public record CreateOrderClientRequest(
-        float totalAmount, Date orderDate, Integer clientCustomerId, Set<Integer> clientOrderItemIds) {
+        float totalAmount, Date orderDate, Integer customerId, Set<Integer> orderItemIds) {
 }
